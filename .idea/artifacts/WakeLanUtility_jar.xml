@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WakeLanUtility:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WakeLanUtility_jar</output-path>
+    <root id="archive" name="WakeLanUtility.jar">
+      <element id="module-output" name="WakeLanUtility" />
+    </root>
+  </artifact>
+</component>

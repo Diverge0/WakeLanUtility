@@ -12,24 +12,14 @@ public class Server {
         this.port = port;
     }
     public void startServer() throws IOException {
+        System.out.println("Starting WolServer");
         ServerSocket server = new ServerSocket(port);
         while (true){
-            Socket client = null;
 
-            try {
-                client = server.accept();
+            try (Socket client = server.accept()) {
                 handleConnection(client);
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally{
-                if (client != null){
-                    try{
-                        client.close();
-                    }
-                    catch(IOException ignored){}
-                }
             }
         }
     }
@@ -37,7 +27,9 @@ public class Server {
     private void handleConnection(Socket client) throws IOException{
         Scanner in = new Scanner(client.getInputStream());
         PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-
-        WolGenerator.sendMagicPacket(in.nextLine());
+        String mac = in.nextLine();
+        WolGenerator.sendMagicPacket(mac);
+        System.out.println("Received WOL request from " + client.getInetAddress().getHostAddress() + " for MAC " + mac);
+        out.println("Sent WoL command");
     }
 }
